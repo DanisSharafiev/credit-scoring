@@ -2,10 +2,11 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from app.core.logging import setup_logging
 from app.core.middleware import setup_middleware
+from app.api.endpoints.credit_scoring import router as credit_scoring_router
 
 app = FastAPI()
 
-app.include_router()
+app.include_router(router=credit_scoring_router)
 
 @asynccontextmanager
 def lifespan():
