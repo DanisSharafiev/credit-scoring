@@ -11,4 +11,5 @@ services:
       - ./credit-scoring-service:/app
     environment:
       - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
     command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
