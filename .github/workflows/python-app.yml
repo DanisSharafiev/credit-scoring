@@ -1,0 +1,34 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Docker compose up
+      run: |
+        docker-compose up -d --build
+
+    - name: sleep
+      run: |
+        sleep 10
+
+    - name: tests
+      run: |
+        docker-compose exec credit-scoring-service pytest tests/
+
+    - name: Docker compose down
+      if: always()
+      run: |
+        docker-compose down
